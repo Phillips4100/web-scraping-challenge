@@ -8,14 +8,14 @@
     <title>Mission to Mars</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
-
 <body>
     <div class="container">
         <div class="jumbotron text-center">
           <h1>Mission to Mars</h1>
           <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Get Latest</a></p>
         </div>
-
+    </div>
+    <div class='container'>
         <div class="row" id="mars-news">
           <div class="col-md-12">
               <h3>Latest Mars News</h3>
@@ -23,15 +23,19 @@
                     <p>{{mars.pgrph}}</p>
           </div>
         </div>
-
         <div class ="row" id="mars-image">
-            <div class = "col-md-8">
+            <div class = "col-xs-4 col-sm-6 col-md-8 col-lg-8">
                 <h3>Featured Mars Image</h3>
-                <img src = "{{mars.img_url}}" alt ="Mars Image">
+                <hr>
+                <div class='image-wrapper float-left w-100'>
+                    <img src = "{{mars.img_url}}" class="img-fluid" width = "100%" alt ="Mars Image"></img>
+                </div>
             </div>
-            <div class = "col-md-4">
+            <div class = "col-sm-2 col-md-4 col-lg-4">
                 <h4>Mars Facts</h4>
-                <table>{{mars.table}}</table>
+                <table class='table table-responsive-sm d'>
+                </table>
+                <thread>{{mars.table}}</thread>
             </div>
         </div>
     </div>
