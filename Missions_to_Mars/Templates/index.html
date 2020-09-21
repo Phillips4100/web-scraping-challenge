@@ -33,11 +33,10 @@
             </div>
             <div class = "col-sm-2 col-md-4 col-lg-4">
                 <h4>Mars Facts</h4>
-                <table class='table table-responsive-sm d'>
-                </table>
-                <thread>{{mars.table}}</thread>
+                <p>{{ mars.table|safe }}</p>
             </div>
         </div>
+        <hr>
     </div>
 </body>
 </html>

@@ -40,7 +40,7 @@ def featured_image_url():
 def MarsFacts():
     mars_facts_url='https://space-facts.com/mars/'
     mars_data = pd.DataFrame(pd.read_html(mars_facts_url)[0])
-    table = mars_data.to_html(header = False, index = False)
+    table = mars_data.to_html(classes='data table', header = False, index = False)
     return table
 
 #mars Hemispheres
