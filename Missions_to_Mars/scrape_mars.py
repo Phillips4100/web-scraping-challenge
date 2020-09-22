@@ -33,7 +33,6 @@ def featured_image_url():
     image_soup = BeautifulSoup(html, "html.parser")
     image_url = image_soup.select_one("figure.lede a img").get("src")
     featured_image_url = (f'https://www.jpl.nasa.gov{image_url}')
-    # featured_image_url = 'https://pyxis.nymag.com/v1/imgs/115/983/a29c15a3a8d80f5a81d9c80799b74157d1-01-rbg.rhorizontal.w700.jpg'
     return featured_image_url
 
 # mars facts scrape
@@ -45,27 +44,28 @@ def MarsFacts():
 
 #mars Hemispheres
 def scrape_hemis():
-    # browser = Browser("chrome", executable_path="../chromedriver")
-    # browser.vist(url)
-    # soup=BeautifulSoup(browser.html, 'htlm.parser')
-    # results = soup.find(class_='collapsable').find_all('item')
-    # for each_result in results:
-    #     hemis = {}
-    #     hemis['url'] = each_reslut.find('a')['href']
-    #     results_list.append(hemis)
-        results_list = ['one', 'two', 'three']
-        return results_list
+    browser = Browser("chrome", executable_path="../chromedriver")
+    hemi_url = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
+    results_list = []
+    image_urls = []
+    browser.visit(hemi_url)
+    hemiSoup = BeautifulSoup(browser.html, 'html.parser')
+    results = hemiSoup.find(class_='collapsible').find_all(class_='item')
+    time.sleep(.5)
+    for result in results:
+        image_title=result.find(class_='description').find('a').find('h3').text
+        results_list.append(image_title)
+    for title in results_list:
+        time.sleep(.5)
+        browser.find_link_by_partial_text(title).click()
+        imgSoup=BeautifulSoup(browser.html, 'html.parser')
+        link=imgSoup.find(class_='downloads').find('ul').find('li').find('a')['href']
+        image_urls.append(link)
+        browser.back()
+    return image_urls
 
 # main scrape function
 def scrape_all():
-
-    # executable_path = {"executable_path": "../chromedriver"}
-    # browser = Browser("chrome", executable_path="../chromedriver", headless=False)
-    # title, pgrph = mars_news(browser)
-    # img_url = featured_image(browser)
-    # mars_weather = twitter_weather(browser)
-    # facts = mars_facts()
-    # hemisphere_image_urls = hemisphere(browser)
 
     collection = {}
     collection["title"]= mars_news()[0]
@@ -73,6 +73,7 @@ def scrape_all():
     collection["img_url"]= featured_image_url()
     collection["table"]= MarsFacts()
     collection["date"]= dt.datetime.now()
+    collection["image_urls"]= scrape_hemis()
 
     # browser.quit()
     return collection

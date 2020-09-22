@@ -38,5 +38,14 @@
         </div>
         <hr>
     </div>
+    <div class='container'>
+        <div class="row" id="mars_hemis">
+            <div class="col-md-12">
+                {% for image in mars.image_urls %}
+                <img src = {{image}} style= 'height: 400px; width: 400px'>
+                {% endfor %}
+            </div>
+        </div>
+    </div>        
 </body>
 </html>
